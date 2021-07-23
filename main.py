@@ -12,7 +12,7 @@ def main():
     rs = RingSession(Path('ring_token.cache'))
     rs.create_ring()
     rs.ring.update_devices()
-    bot = SlackBot("#bot-channel")
+    bot = SlackBot("#office")
 
     logging.basicConfig(format='%(asctime)s\t%(levelname)s\t%(message)s',
                         datefmt='%Y-%d-%m %H:%M:%S', filename='server.log', level=logging.INFO)
