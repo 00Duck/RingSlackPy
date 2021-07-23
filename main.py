@@ -24,16 +24,16 @@ def main():
                 dev_id = str(alert['doorbot_id'])
                 logging.info('Device: %s, Description: %s, Kind: %s',
                              alert['device_kind'] or '', alert['doorbot_description'] or '', alert['kind'] or '')
-                if str(alert['kind']) == 'on_demand': # ding
+                # Kind options: ding, on_demand, motion?
+                if str(alert['kind']) == 'ding':
                     rs.ring.update_devices()
                     bat_life = int(rs.get_battery_life(dev_id))
                     msg = "<!here> Someone is at the door!"
                     if bat_life <= 35:
                         msg = f"<!here> Someone is at the door! (battery: {bat_life}%)"
-                    bot.send_message(msg)
                     rs.take_screenshot(dev_id)
-                elif str(alert['kind']) == 'ding':
-                    pass
+                    bot.send_message(msg, True)
+
             retries = 0 # reset so we have 5 more attempts after a successful run
         except:
             err = traceback.format_exc().replace('\n', '::')

@@ -14,14 +14,15 @@ class SlackBot:
     def set_channel(self, c):
         self.channel = c
 
-    def send_message(self, msg, snapshot=False):
+    def send_message(self, msg, upload_snapshot=False):
         try:
             self.client.chat_postMessage(channel=self.channel, text=msg)
-            self.client.files_upload(
-                channels=self.channel,
-                file="last_screenshot.jpg",
-                title="Door"
-            )
+            if upload_snapshot == True:
+                self.client.files_upload(
+                    channels=self.channel,
+                    file="last_screenshot.jpg",
+                    title="Door"
+                )
         except SlackApiError as e:
             logging.error("SlackBot could not post message. OK: %s, Error: %s", e.response["ok"], e.response["error"])
 
