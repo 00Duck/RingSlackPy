@@ -4,6 +4,7 @@ import logging
 from uuid import uuid4 as uuid
 from ring_doorbell import Ring, Auth
 from pathlib import Path
+import traceback
 
 
 class RingSession:
@@ -76,6 +77,7 @@ class RingSession:
             try:
                 ring.create_session()
             except:
+                print(traceback.format_exc())
                 logging.error("Authorization error - token likely expired.")
                 quit()
         self.ring = ring

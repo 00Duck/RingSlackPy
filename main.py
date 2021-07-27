@@ -31,8 +31,12 @@ def main():
                     msg = "<!here> Someone is at the door!"
                     if bat_life <= 35:
                         msg = f"<!here> Someone is at the door! (battery: {bat_life}%)"
-                    rs.take_screenshot(dev_id)
-                    bot.send_message(msg, True)
+                    try:
+                        rs.take_screenshot(dev_id)
+                    except:
+                        bot.send_message(msg, False)
+                    else:
+                        bot.send_message(msg, True)
 
             retries = 0 # reset so we have 5 more attempts after a successful run
         except:
